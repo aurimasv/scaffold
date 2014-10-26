@@ -539,6 +539,15 @@ var Scaffold = new function() {
 			"displayOptions", "browserSupport"]) {
 			translator[p] = metadata[p];
 		}
+		
+		// Compile regexp for web translators
+		if ((translator.translatorType & 4) && translator.target) {
+			try {
+				translator.webRegexp = new RegExp(translator.target, "i");
+			} catch(e) {
+				_logOutput("Could not compile target regexp: " + e);
+			}
+		}
 
 		if(!translator.configOptions) translator.configOptions = {};
 		if(!translator.displayOptions) translator.displayOptions = {};
